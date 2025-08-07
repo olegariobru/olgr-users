@@ -1,0 +1,126 @@
+.entHeader{
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 1% 0 1% 0;
+}
+
+.entHeader h1{
+    color: var(--cor-primaria);
+    margin: 1% 0 1% 0;
+    padding: 0;
+    font-family: var(--fonte-principal);
+    font-weight: 300;
+    font-size: medium;
+    cursor: default;
+}
+.buttonHead {
+    margin: 0 0 0 50%;
+    align-items: center;
+    display: flex;
+    font-size: small;
+}
+.buttonHead .btnEntrar{
+    margin: 2.9% 20% 0 0;
+    cursor: pointer;
+    padding: 8% 8% 9% 8%;
+    transition: background-color 0.3s ease;
+}
+
+.buttonHead .btnEntrar:hover{
+    background-color: var(--cor-secundaria);
+    border-radius: 4px;
+
+}
+.buttonHead .btnCadastrar{
+    padding: 9% 6% 9% 6%;
+    margin: 2.9% 0 0 0;
+    background-color: var(--cor-preta);
+    color: var(--cor-branca);
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    animation: none;
+    transition: transform 0.3s ease;
+}
+
+.buttonHead .btnCadastrar:hover{
+    animation: pulse 1s infinite;
+}
+
+
+.slgPrin{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10% 0 0 0;
+}
+
+.slgPrin2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: -2% 0 0 0;
+}
+
+.slgPriParag{
+  color: var(--cor-secundaria);
+}
+
+.slgPrinBody{
+  font-size: 250%;
+  font-style: normal;
+  font-weight: 100;
+}
+
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+
+
+
+/* Tablets paisagem (até 1024px) */
+@media (max-width: 1024px) {
+  .entHeader h1 {
+    font-size: 22px;
+  }
+}
+
+/* Tablets retrato (até 768px) */
+@media (max-width: 768px) {
+  .entHeader h1 {
+    font-size: 20px;
+  }
+}
+
+/* Celulares grandes (até 600px) */
+@media (max-width: 600px) {
+  .entHeader h1{
+    font-size: 18px;
+  }
+}
+
+/* Celulares médios (até 425px) */
+@media (max-width: 425px) {
+  .entHeader h1{
+    font-size: 16px;
+  }
+}
+
+/* Celulares pequenos (até 375px) */
+@media (max-width: 375px) {
+  .entHeader h1 {
+    font-size: 14px;
+  }
+}

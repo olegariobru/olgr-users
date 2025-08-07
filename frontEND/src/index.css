@@ -5,9 +5,18 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f5f5f5;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+:root {
+  --cor-principal:#eb0000;
+  --cor-secundaria: #CBCBCB;
+  --cor-branca: white;
+  --cor-preta: black;
+  --fonte-principal: "Nata Sans", sans-serif;
 }
