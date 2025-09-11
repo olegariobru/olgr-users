@@ -1,0 +1,75 @@
+.lgHeader{
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 1% 0 1% 0;
+}
+
+.lgHeader h1{
+    color: var(--cor-primaria);
+    padding: 0;
+    font-family: var(--fonte-principal);
+    font-weight: 300;
+    font-size: medium;
+    cursor: default;
+}
+
+
+.lgBody{
+    display: block;
+    height: 100vh;
+    margin: 5% 0 0 0;
+}
+
+.lgForm {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 32px;
+    background: var(--cor-secundaria);
+    border-radius: 12px;
+    box-shadow: 0 4px 12pc rgba(0, 0, 0, 0.1);
+    width: 320px;
+    margin: 5% 0 0 35%;
+}
+
+.lgBodyTitle{
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: 250;
+    color: var(--cor-secundaria);
+}
+
+.lgLabel {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--cor-preta);
+}
+.lgInput {
+    padding: 10px 12px;
+    border: 1px solid var(--cor-preta);
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s
+}
+.lgInput:focus {
+    border-color: var(--detalhe);
+}
+
+.lgButton {
+    padding: 12px;
+    background-color: var(--cor-preta);
+    color: var(--cor-branca);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 5% 0 5% 0;
+    transition: background-color 0.3s ease;
+}
+
+.lgButton:hover {
+    background-color: var(--detalhe);
+}
