@@ -1,7 +1,10 @@
+
 import styles from './login.module.css'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 export default function LoginPrin (){
+  
     return(
         <motion.div
             initial={{ opacity: 0, y: 20}}
@@ -27,7 +30,7 @@ export default function LoginPrin (){
                     <label className={styles.lgLabel} htmlFor="password">Senha</label>
                     <input className={styles.lgInput} type="password" id="password" name="password" required />
                     <button className={styles.lgButton} type="submit">Entrar</button>
-                    <p className={styles.lgFormP}>Esqueceu sua senha? <a href="#" className={styles.lgLink}>Clique aqui</a>.</p>
+                    <p className={styles.lgFormP}>Esqueceu sua senha? <Link to="/forgotPass" className={styles.lgLink}>Clique aqui</Link>.</p>
                 </form>
             </div>
         </div>
