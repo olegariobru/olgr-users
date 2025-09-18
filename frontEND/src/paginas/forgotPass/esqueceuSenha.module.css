@@ -1,0 +1,84 @@
+.fgHeader{
+    display: flex;
+    justify-content: center;
+}
+
+.fgHeader h1{
+    color: var(--cor-primaria);
+    padding: 0;
+    font-family: var(--fonte-principal);
+    font-weight: 300;
+    font-size: medium;
+    cursor: default;
+}
+
+.fgForm{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 32px;
+    background: var(--detalhe2);
+    border-radius: 12px;
+    box-shadow: 0 4px 12pc rgba(0, 0, 0, 0.1);
+    width: 320px;
+    margin: 5% 0 0 35%;
+}
+.fgTit{
+    font-size: 20px;
+    color: var(--cor-preta);
+    margin: 0;
+    padding: 0%;
+}
+
+.fgSubTit{
+    font-size: 14px;
+    color: var(--cor-preta);
+    margin: 0;
+    padding: 0%;
+}
+
+.inputFg {
+    padding: 3%;
+    border: 1px solid var(--cor-preta);
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s
+}
+
+
+.btnFg{
+    padding: 12px;
+    background-color: var(--cor-preta);
+    color: var(--cor-branca);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+.btnFg:hover {
+    background-color: var(--detalhe);
+    color: var(--cor-preta);
+}
+
+.divisor{
+    display: inline-block;
+    width: auto;
+    text-align: center;
+}
+
+
+.fgRod{
+    font-size: 14px;
+    margin: 0%;
+    padding: 0%;
+    color: var(--cor-preta);
+    cursor: pointer;
+    text-decoration: none;  
+    transition: color 0.3s;
+
+}
+.fgRod:hover {
+    color: var(--cor-branca);
+}

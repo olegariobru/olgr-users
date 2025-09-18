@@ -21,7 +21,7 @@
     flex-direction: column;
     gap: 16px;
     padding: 32px;
-    background: var(--cor-secundaria);
+    background: var(--detalhe2);
     border-radius: 12px;
     box-shadow: 0 4px 12pc rgba(0, 0, 0, 0.1);
     width: 320px;
@@ -43,7 +43,7 @@
 
 .lgFormPsubtitle{
     font-size: 14px;
-    color: var(--detalhe2);
+    color: var(--cor-preta);
     margin: 0;
     padding: 0%;
 }
@@ -99,6 +99,6 @@
 }
 
 .lgLink:hover{
-    color: var(--detalhe2);
+    color: var(--cor-branca);
     text-decoration: none;
 }
