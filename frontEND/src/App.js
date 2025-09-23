@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import LoginPrin from './paginas/login'
 import EsqueceuSenha from './paginas/forgotPass';
 import TelaDeEntrada from './paginas/telaEntrada'; 
+import Cadastro from './paginas/cadastro';
+import Footer from './paginas/footer';
 import { AnimatePresence } from 'framer-motion'
-
 
 function AnimatedRoutes(){
   const location = useLocation();
@@ -15,16 +16,24 @@ function AnimatedRoutes(){
         <Route path="/" element={<TelaDeEntrada/>}/>
         <Route path="/Login" element={<LoginPrin/>}/>
         <Route path="/forgotPass" element={<EsqueceuSenha/>}/> 
+        <Route path="/cadastro" element={<Cadastro/>}/>
         <Route path="*" element={<h1>Erro 404 - Página não encontrada!</h1>}/>
       </Routes>
     </AnimatePresence>
+
+
   )
 }
 
 function App() {
   return (
     <Router>
-      <AnimatedRoutes/>
+      <div className="App" style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+        <div style={{ flex: 1 }}>
+          <AnimatedRoutes/>
+        </div>
+        <Footer />
+      </div>  
     </Router>
 
   );

@@ -1,0 +1,20 @@
+.footer {
+  background-color: var(--detalhe2);
+  color: var(--cor-preta);
+  font-family: var(--fonte-principal);
+  padding: 1%;
+  margin: 4% 0 0 0 ;
+}
+
+.footersite p{
+    text-align: center;
+    font-size: 15px;
+    font-weight: 300;
+}
+
+.redes{
+    text-align: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+

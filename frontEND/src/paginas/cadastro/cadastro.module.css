@@ -1,0 +1,84 @@
+.cadHeader{
+    display: flex;
+    justify-content: center;
+}
+
+.cadHeader h1{
+    color: var(--cor-primaria);
+    padding: 0;
+    font-family: var(--fonte-principal);
+    font-weight: 300;
+    font-size: medium;
+    cursor: default;
+}
+.cadForm{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 2%;
+    background: var(--detalhe2);
+    border-radius: 12px;
+    box-shadow: 0 4px 12pc rgba(0, 0, 0, 0.1);
+    width: 300px;
+    margin: 3% 0 0 36%;
+}   
+.cadTit{
+    font-size: 20px;
+    color: var(--cor-preta);
+    margin: 0;
+    padding: 0%;
+}
+.cadSubTit{
+    font-size: 14px;
+    color: var(--cor-preta);
+    margin: 0;
+    padding: 0%;
+}
+.inputCad {
+    padding: 3%;
+    border: 1px solid var(--cor-preta);
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s
+}
+
+.btnCad{
+    padding: 12px;
+    background-color: var(--cor-preta);
+    color: var(--cor-branca);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+.btnCad:hover {
+    background-color: var(--cor-primaria);
+}
+.btnCad:active {
+    background-color: var(--cor-primaria-escura);
+}
+.inputCad:focus {
+    border-color: var(--cor-primaria);
+}
+.inputCad::placeholder {
+    color: var(--cor-cinza);
+    font-size: 14px;
+
+}
+
+.cadLink{
+    font-size: 14px;
+    color: var(--cor-preta);
+    text-align: center;
+    text-decoration: none;
+    margin-top: 8px;
+    transition: color 0.3s;
+}
+
+.cadLink:hover {
+    color: var(--cor-primaria);
+    text-decoration: none;
+    color: var(--cor-branca);
+}

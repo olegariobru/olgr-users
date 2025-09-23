@@ -9,6 +9,9 @@ export default function Teladeentrada(){
     const goLogin = () => {
         navigate('/login');
     };
+    const goCadastro = () => {
+        navigate('/cadastro');
+    };
     return(
         <motion.div
             initial={{ opacity: 0, y: 20}}
@@ -23,7 +26,7 @@ export default function Teladeentrada(){
             
         <div className={styles.buttonHead}>
             <p className={styles.btnEntrar} onClick={goLogin}> Entrar </p>
-            <button className={styles.btnCadastrar}>Cadastrar</button>
+            <button className={styles.btnCadastrar} onClick={goCadastro}>Cadastrar</button>
         </div>
         </div>
 
@@ -34,6 +37,7 @@ export default function Teladeentrada(){
             <p className={styles.slgPriParag}>Seja bem vindo!</p>
         </div>
         </div>
+
         </motion.div>
     )
 }
