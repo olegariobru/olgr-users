@@ -4,10 +4,10 @@ import LoginPrin from './paginas/login'
 import EsqueceuSenha from './paginas/forgotPass';
 import TelaDeEntrada from './paginas/telaEntrada'; 
 import Cadastro from './paginas/cadastro';
-import Footer from './paginas/footer';
+import Footer from './Componentes/footer';
 import { AnimatePresence } from 'framer-motion'
 
-function AnimatedRoutes(){
+function AnimatedRoutes(){ 
   const location = useLocation();
 
   return (
