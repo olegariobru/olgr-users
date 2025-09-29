@@ -3,6 +3,8 @@ import styles from './esqueceuSenha.module.css';
 import { motion } from 'framer-motion';
 
 export default function EsqueceuSenha() {
+
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20}}
@@ -23,7 +25,7 @@ export default function EsqueceuSenha() {
                 <input className={styles.inputFg} type="email" id="email" name="email" required />
                 <button className={styles.btnFg} type="submit">Enviar link de recuperação</button>
                 <div className={styles.divisor}>
-                    <Link className={styles.fgRod}>Voltar ao login</Link>
+                    <Link to="/login" className={styles.fgRod}>Voltar ao login</Link>
                 </div>
             </form>
         </div>

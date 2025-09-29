@@ -18,11 +18,11 @@ export default function Cadastro() {
                 <form className={styles.cadForm}>
                     <h1 className={styles.cadTit}>Crie sua conta</h1>
                     <p className={styles.cadSubTit}>Vamos começar com suas informações básicas</p>
-                    <label htmlFor="nome">Nome:</label>
+                    <label className={styles.labelCad} htmlFor="nome">Nome</label>
                     <input className={styles.inputCad} type="text" id="nome" name="nome" required />
-                    <label htmlFor="email">Email:</label>
+                    <label className={styles.labelCad} htmlFor="email">Email</label>
                     <input className={styles.inputCad} type="email" id="email" name="email" required />
-                    <label htmlFor="senha">Senha:</label>
+                    <label className={styles.labelCad} htmlFor="password">Senha</label>
                     <input className={styles.inputCad} type="password" id="senha" name="senha" required />
                     <button className={styles.btnCad} type="submit">Cadastrar</button>
                     <div className={styles.divisor}>

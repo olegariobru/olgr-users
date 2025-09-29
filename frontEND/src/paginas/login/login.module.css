@@ -81,6 +81,7 @@
 
 .lgButton:hover {
     background-color: var(--detalhe);
+    color: var(--cor-preta);
 }
 
 .lgFormP{
@@ -89,6 +90,7 @@
     text-align: center;
     margin: 0;
     padding: 0;
+    cursor: default;
 }
 
 .lgLink{
