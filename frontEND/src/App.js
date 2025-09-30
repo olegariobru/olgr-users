@@ -6,6 +6,7 @@ import TelaDeEntrada from './paginas/telaEntrada';
 import Cadastro from './paginas/cadastro';
 import Footer from './Componentes/footer';
 import { AnimatePresence } from 'framer-motion'
+import Header from './Componentes/Header';
 
 function AnimatedRoutes(){ 
   const location = useLocation();
@@ -28,10 +29,13 @@ function AnimatedRoutes(){
 function App() {
   return (
     <Router>
+      
       <div className="App" style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
         <div style={{ flex: 1 }}>
+          <Header />
           <AnimatedRoutes/>
         </div>
+        
         <Footer />
       </div>  
     </Router>

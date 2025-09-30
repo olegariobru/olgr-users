@@ -1,16 +1,4 @@
-.fgHeader{
-    display: flex;
-    justify-content: center;
-}
 
-.fgHeader h1{
-    color: var(--cor-primaria);
-    padding: 0;
-    font-family: var(--fonte-principal);
-    font-weight: 300;
-    font-size: medium;
-    cursor: default;
-}
 
 .fgForm{
     display: flex;

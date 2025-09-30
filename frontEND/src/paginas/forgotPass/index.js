@@ -12,9 +12,7 @@ export default function EsqueceuSenha() {
             exit={{ opacity: 0, y: -20}}
             transition={{ duration: 0.5}}
         >
-            <div className={styles.fgHeader}>
-                <h1>olg&lt;Users&gt;.</h1>
-            </div>            
+           
 
         <div className={styles.container}>
 

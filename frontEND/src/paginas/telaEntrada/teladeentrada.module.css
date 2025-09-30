@@ -1,14 +1,10 @@
 .entHeader{
     display: flex;
     justify-content: center;
-    margin: 0;
-    padding: 1% 0 1% 0;
 }
 
 .entHeader h1{
     color: var(--cor-primaria);
-    margin: 1% 0 1% 0;
-    padding: 0;
     font-family: var(--fonte-principal);
     font-weight: 300;
     font-size: medium;

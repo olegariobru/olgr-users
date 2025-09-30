@@ -12,10 +12,7 @@ export default function LoginPrin (){
             exit={{ opacity: 0, y: -20}}
             transition={{ duration: 0.5}}
         ><div>
-            <div className={styles.lgHeader}>
-                <h1>olg&lt;Users&gt;.</h1>
-            
-            </div>
+
 
             <div className={styles.lgBody}>
                 <form className={styles.lgForm}>

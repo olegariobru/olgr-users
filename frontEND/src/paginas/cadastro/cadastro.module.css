@@ -97,3 +97,8 @@
     color: var(--cor-branca);
     text-decoration: none;
 }
+.msgSucesso {
+  color: green;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
