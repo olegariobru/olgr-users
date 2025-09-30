@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import styles from './cadastro.module.css';
-
 import { useState } from 'react';
 import { auth, db } from '../../firebaseConfig';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -13,7 +12,7 @@ export default function Cadastro() {
     senha: '',
     telefone: '',
     cpf: '',
-    role: 'leitor', // padrão: leitor
+    role: 'leitor', 
   });
 
   const handleChange = (e) => {
@@ -38,11 +37,44 @@ export default function Cadastro() {
       });
 
       alert('Usuário cadastrado com sucesso!');
+      setForm({
+        nome: '',
+        email: '',
+        senha: '',
+        telefone: '',
+        cpf: '',
+        role: 'leitor',
+      });
     } catch (error) {
       console.error('Erro ao cadastrar usuário:', error);
-      alert('Erro ao cadastrar usuário: ' + error.message);
+
+      let msg = 'Erro ao cadastrar usuário.';
+
+      switch (error.code) {
+        case 'auth/email-already-in-use':
+          msg = 'Este email já está em uso.';
+          break;
+        case 'auth/invalid-email':
+          msg = 'Email inválido.';
+          break;
+        case 'auth/weak-password':
+          msg = 'A senha deve ter pelo menos 6 caracteres.';
+          break;
+        case 'auth/network-request-failed':
+          msg = 'Erro de rede. Verifique sua conexão.';
+          break;
+        case 'auth/missing-password':
+          msg = 'A senha é obrigatória.';
+          break;
+        default:
+          msg = 'Erro inesperado: ' + error.message;
+      }        
+      alert(msg);
     }
   };
+
+
+
 
   return (
     <motion.div
