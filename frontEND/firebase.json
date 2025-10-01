@@ -1,13 +1,6 @@
 {
 "hosting": {
-/* ******************************************************************
-** ALTERAÇÃO APLICADA: MUDANDO DE "build" PARA "dist" **
-** **
-** Verifique a sua pasta de build local. Se ela se chamar 'build', **
-** 'out', 'public', etc., você deve alterar o valor abaixo.       **
-** A pasta correta deve ser a que contém o index.html final.      **
-******************************************************************
-/
+
 "public": "dist",
 "ignore": [
 "firebase.json",
