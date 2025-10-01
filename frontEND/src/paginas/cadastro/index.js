@@ -24,16 +24,43 @@ export default function Cadastro() {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
   }
+
   const validarSenha = (senha) => {
     const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
     return regex.test(senha);
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMensagem('');
 
+    // 1️⃣ Validação de campos vazios
+    if (!form.nome && !form.email && !form.senha && !form.telefone) {
+      setMensagem('❌ Por favor, preencha todos os campos.');
+      return;
+    }
+
+    if (!form.nome) {
+      setMensagem('❌ O campo "Nome" está vazio.');
+      return;
+    }
+
+    if (!form.email) {
+      setMensagem('❌ O campo "Email" está vazio.');
+      return;
+    }
+
+    if (!form.senha) {
+      setMensagem('❌ O campo "Senha" está vazio.');
+      return;
+    }
+
+    if (!form.telefone) {
+      setMensagem('❌ O campo "Telefone" está vazio.');
+      return;
+    }
+
+    // 2️⃣ Validação de email e senha
     if (!validarEmail(form.email)) {
       setMensagem('❌ O email informado não é válido.');
       return;
@@ -43,6 +70,7 @@ export default function Cadastro() {
       return;
     }
 
+    // 3️⃣ Tentativa de cadastro
     try {
       await createUserWithEmailAndPassword(auth, form.email, form.senha);
       setMensagem('✅ Usuário cadastrado com sucesso!');
@@ -88,6 +116,8 @@ export default function Cadastro() {
           <label className={styles.cadLabel} htmlFor="senha">Senha</label>
           <input className={styles.inputCad} type="password" id="senha" name="senha" value={form.senha} onChange={handleChange} />
 
+          <label className={styles.cadLabel} htmlFor="telefone">Telefone</label>
+          <input className={styles.inputCad} type="text" id="telefone" name="telefone" value={form.telefone} onChange={handleChange} />
 
           <button className={styles.btnCad} type="submit">Cadastrar</button>
 
@@ -103,7 +133,9 @@ export default function Cadastro() {
             </motion.p>
           )}
 
-          <p className={styles.cadFormP}>Já tem conta? <Link to="/login" className={styles.cadLink}>Entrar</Link></p>
+          <p className={styles.cadFormP}>
+            Já tem conta? <Link to="/login" className={styles.cadLink}>Entrar</Link>
+          </p>
         </form>
       </div>
     </motion.div>
