@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "build",
+    "public": "public",
     "site": "olguser",
     "ignore": [
       "firebase.json",
