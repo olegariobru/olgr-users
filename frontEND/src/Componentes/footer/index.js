@@ -18,10 +18,12 @@ export default function Footer() {
             </div>
 
             <div className={styles.redes}>
-                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebook size={24} color="black" /></a>
-                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram size={24} color="black" /></a>
-                <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer"><FaLinkedin size={24} color="black" /></a>   
-                <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer"><FaTwitter size={24} color="black" /></a>
+                <div className={styles.icons}>
+                    <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebook size={24} color="black" /></a>
+                    <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram size={24} color="black" /></a>
+                    <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer"><FaLinkedin size={24} color="black" /></a>   
+                    <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer"><FaTwitter size={24} color="black" /></a>
+                </div>
             </div>
         </footer>
         </motion.div>
