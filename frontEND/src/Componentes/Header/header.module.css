@@ -1,11 +1,10 @@
 .entHeader {
   display: flex;
-  justify-content: space-between; /* logo esquerda, botões direita */
+  justify-content: space-between; 
   align-items: center;
   padding: 0 5% 0 5%;
 }
 
-/* Quando for só o logo, centraliza */
 .entHeader.somenteLogo {
   justify-content: center;
 }
@@ -23,7 +22,7 @@
 
 .buttonHead {
   display: flex;
-  gap: 15px; /* espaço entre botões */
+  gap: 15px; 
   font-size: small;
 }
 
@@ -53,4 +52,31 @@
 
 .buttonHead .btnCadastrar:hover {
   animation: pulse 1s infinite;
+}
+
+
+
+@media (max-width: 375px) {
+  .entHeader {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 0 0 0;
+  }
+
+  .buttonHead {
+    flex-direction: column;
+    gap: 10px; 
+  }
+
+  .buttonHead .btnEntrar, .buttonHead .btnCadastrar {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@media (min-width: 376px) and (max-width: 768px) {
+  .logo{
+    font-size: 1.2em;
+  }
 }
