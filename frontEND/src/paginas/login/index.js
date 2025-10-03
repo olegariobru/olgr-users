@@ -16,7 +16,6 @@ export default function LoginPrin (){
 
             <div className={styles.lgBody}>
                 <form className={styles.lgForm}>
-
                     <div className={styles.lgFormDiv}>
                         <p className={styles.lgFormPtitle}>Bem-vindo de volta! :)</p>
                         <p className={styles.lgFormPsubtitle}>insira suas credenciais para acessar sua conta.</p>

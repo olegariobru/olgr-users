@@ -1,15 +1,15 @@
 
 
 .fgForm{
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 32px;
-    background: var(--detalhe2);
-    border-radius: 12px;
-    box-shadow: 0 4px 12pc rgba(0, 0, 0, 0.1);
-    width: 320px;
-    margin: 5% 0 0 35%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px;
+  background: var(--detalhe2);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 320px;
+  margin: 5% auto; /* centralizar igual login */
 }
 .fgTit{
     font-size: 20px;
