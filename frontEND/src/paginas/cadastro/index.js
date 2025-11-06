@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 import styles from './cadastro.module.css';
 import { useState } from 'react';
-import { auth } from '../../firebaseConfig';
+import { auth, db } from '../../firebaseConfig'; // db vem do getFirestore(app)
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore'; // Import Firestore
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function Cadastro() {
@@ -11,6 +12,7 @@ export default function Cadastro() {
     email: '',
     senha: '',
     telefone: '',
+    role: 'Users', // Valor padrão
   });
 
   const [mensagem, setMensagem] = useState('');
@@ -20,66 +22,52 @@ export default function Cadastro() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const validarEmail = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-  }
-
-  const validarSenha = (senha) => {
-    const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
-    return regex.test(senha);
-  };
+  const validarEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validarSenha = (senha) =>
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/.test(senha);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMensagem('');
 
-    // 1️⃣ Validação de campos vazios
-    if (!form.nome && !form.email && !form.senha && !form.telefone) {
-      setMensagem('❌ Por favor, preencha todos os campos.');
-      return;
+    // Validação de campos obrigatórios
+    const campos = ['nome', 'email', 'senha', 'telefone'];
+    for (const campo of campos) {
+      if (!form[campo]) {
+        setMensagem(`❌ O campo "${campo}" está vazio.`);
+        return;
+      }
     }
 
-    if (!form.nome) {
-      setMensagem('❌ O campo "Nome" está vazio.');
-      return;
-    }
-
-    if (!form.email) {
-      setMensagem('❌ O campo "Email" está vazio.');
-      return;
-    }
-
-    if (!form.senha) {
-      setMensagem('❌ O campo "Senha" está vazio.');
-      return;
-    }
-
-    if (!form.telefone) {
-      setMensagem('❌ O campo "Telefone" está vazio.');
-      return;
-    }
-
-    // 2️⃣ Validação de email e senha
     if (!validarEmail(form.email)) {
       setMensagem('❌ O email informado não é válido.');
       return;
     }
+
     if (!validarSenha(form.senha)) {
-      setMensagem('❌ A senha deve ter pelo menos 6 caracteres, incluindo letras, números e caracteres especiais.');
+      setMensagem(
+        '❌ A senha deve ter pelo menos 6 caracteres, incluindo letras, números e caracteres especiais.'
+      );
       return;
     }
 
-    // 3️⃣ Tentativa de cadastro
     try {
-      await createUserWithEmailAndPassword(auth, form.email, form.senha);
+      // 1️⃣ Cria o usuário no Firebase Authentication
+      const cred = await createUserWithEmailAndPassword(auth, form.email, form.senha);
+
+      // 2️⃣ Cria o documento no Firestore com o grupo selecionado
+      await setDoc(doc(db, 'users', cred.user.uid), {
+        nome: form.nome,
+        email: form.email,
+        telefone: form.telefone,
+        role: form.role, // 🔹 Armazena o grupo escolhido
+        criadoEm: new Date(),
+      });
+
       setMensagem('✅ Usuário cadastrado com sucesso!');
-
-      setTimeout(() => {
-        navigate('/login');
-      }, 2000);
-
+      setTimeout(() => navigate('/login'), 2000);
     } catch (error) {
+      console.error(error);
       if (error.code === 'auth/email-already-in-use') {
         setMensagem('❌ Este email já está em uso.');
       } else if (error.code === 'auth/weak-password') {
@@ -101,25 +89,68 @@ export default function Cadastro() {
     >
       <div className={styles.cadBody}>
         <form className={styles.cadForm} onSubmit={handleSubmit}>
-
           <div className={styles.cadFormDiv}>
-            <p className={styles.cadFormTitle}>Crie sua conta</p>
-            <p className={styles.cadFormSubtitle}>Preencha suas informações abaixo.</p>
+            <p className={styles.cadFormTitle}>Cadastrar novo usuário</p>
+            <p className={styles.cadFormSubtitle}>Preencha as informações abaixo.</p>
           </div>
 
           <label className={styles.cadLabel} htmlFor="nome">Nome</label>
-          <input className={styles.inputCad} type="text" id="nome" name="nome" value={form.nome} onChange={handleChange} />
+          <input
+            className={styles.inputCad}
+            type="text"
+            id="nome"
+            name="nome"
+            value={form.nome}
+            onChange={handleChange}
+          />
 
           <label className={styles.cadLabel} htmlFor="email">Email</label>
-          <input className={styles.inputCad} type="text" id="email" name="email" value={form.email} onChange={handleChange} />
+          <input
+            className={styles.inputCad}
+            type="text"
+            id="email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+          />
 
           <label className={styles.cadLabel} htmlFor="senha">Senha</label>
-          <input className={styles.inputCad} type="password" id="senha" name="senha" value={form.senha} onChange={handleChange} />
+          <input
+            className={styles.inputCad}
+            type="password"
+            id="senha"
+            name="senha"
+            value={form.senha}
+            onChange={handleChange}
+          />
 
           <label className={styles.cadLabel} htmlFor="telefone">Telefone</label>
-          <input className={styles.inputCad} type="text" id="telefone" name="telefone" value={form.telefone} onChange={handleChange} />
+          <input
+            className={styles.inputCad}
+            type="text"
+            id="telefone"
+            name="telefone"
+            value={form.telefone}
+            onChange={handleChange}
+          />
 
-          <button className={styles.btnCad} type="submit">Cadastrar</button>
+          {/* Campo para selecionar o grupo */}
+          <label className={styles.cadLabel} htmlFor="role">Grupo</label>
+          <select
+            className={styles.inputCad}
+            id="role"
+            name="role"
+            value={form.role}
+            onChange={handleChange}
+          >
+            <option value="Admin">Administrador</option>
+            <option value="Users">Usuário</option>
+            <option value="Leitor">Leitor</option>
+          </select>
+
+          <button className={styles.btnCad} type="submit">
+            Cadastrar
+          </button>
 
           {mensagem && (
             <motion.p
@@ -127,14 +158,17 @@ export default function Cadastro() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className={mensagem.startsWith("✅") ? styles.msgSucesso : styles.msgErro}
+              className={mensagem.startsWith('✅') ? styles.msgSucesso : styles.msgErro}
             >
               {mensagem}
             </motion.p>
           )}
 
           <p className={styles.cadFormP}>
-            Já tem conta? <Link to="/login" className={styles.cadLink}>Entrar</Link>
+            Já tem conta?{' '}
+            <Link to="/login" className={styles.cadLink}>
+              Entrar
+            </Link>
           </p>
         </form>
       </div>
