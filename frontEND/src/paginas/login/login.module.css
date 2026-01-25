@@ -1,0 +1,136 @@
+.lgBody{
+    display: block;
+}
+
+.lgForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px;
+  background: var(--detalhe2);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 320px;
+  margin: 5% auto; /* centralizar igual login */
+}
+
+.lgFormDiv{
+    margin: 0;
+    padding: 0;
+}
+
+.lgFormPtitle{
+    font-size: 20px;
+    color: var(--cor-preta);
+    margin: 0;
+    padding: 0;
+}
+
+.lgFormPsubtitle{
+    font-size: 14px;
+    color: var(--cor-preta);
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.lgLabel {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--cor-preta);
+}
+.lgInput {
+    padding: 3%;
+    border: 1px solid var(--cor-preta);
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s
+}
+.lgInput:focus {
+    border-color: var(--detalhe);
+}
+
+.lgButton {
+    padding: 12px;
+    background-color: var(--cor-preta);
+    color: var(--cor-branca);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 5% 0 5% 0;
+    transition: background-color 0.3s ease;
+}
+
+.lgButton:hover {
+    background-color: var(--detalhe);
+    color: var(--cor-preta);
+}
+
+.lgFormP{
+    font-size: 13px;
+    color: var(--cor-preta);
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    cursor: default;
+}
+
+.lgLink{
+    color: var(--cor-preta);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.lgLink:hover{
+    color: var(--cor-branca);
+    text-decoration: none;
+}
+
+
+
+
+@media (max-width: 375px){
+  .lgForm{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 32px;
+    background: var(--detalhe2);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    margin: 35% auto; /* centralizar igual login */
+  }
+}
+
+@media (min-width: 376px) and (max-width: 768px){
+  .lgForm{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 32px;
+    background: var(--detalhe2);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    margin: 45% auto; /* centralizar igual login */
+}
+}
+@media (min-width: 769px) and (max-width: 1024px){
+  .lgForm{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 32px;
+    background: var(--detalhe2);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    margin: 35% auto; /* centralizar igual login */
+  }
+
+}
