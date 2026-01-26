@@ -70,3 +70,15 @@
 .fgRod:hover {
     color: var(--cor-branca);
 }
+
+.sucesso{
+    color: green;
+    font-size: 14px;
+    text-align: center;
+}
+
+.erro{
+    color: red;
+    font-size: 14px;
+    text-align: center;
+}

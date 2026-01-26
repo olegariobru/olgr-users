@@ -3,8 +3,9 @@ import styles from './cadastro.module.css';
 import { useState } from 'react';
 import { auth, db } from '../../firebaseConfig'; // db vem do getFirestore(app)
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore'; // Import Firestore
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore'; // Import Firestore
 import { Link, useNavigate } from 'react-router-dom';
+import { deleteUser } from 'firebase/auth';
 
 export default function Cadastro() {
   const [form, setForm] = useState({
@@ -12,7 +13,7 @@ export default function Cadastro() {
     email: '',
     senha: '',
     telefone: '',
-    role: 'Users', // Valor padrão
+    role: 'usuario', // Valor padrão
   });
 
   const [mensagem, setMensagem] = useState('');
@@ -61,15 +62,18 @@ export default function Cadastro() {
         email: form.email,
         telefone: form.telefone,
         role: form.role, // 🔹 Armazena o grupo escolhido
-        criadoEm: new Date(),
+        criadoEm: serverTimestamp(),
       });
 
       setMensagem('✅ Usuário cadastrado com sucesso!');
       setTimeout(() => navigate('/login'), 2000);
     } catch (error) {
-      console.error(error);
+      if (auth.currentUser) {
+        await deleteUser(auth.currentUser);
+      }
       if (error.code === 'auth/email-already-in-use') {
         setMensagem('❌ Este email já está em uso.');
+        
       } else if (error.code === 'auth/weak-password') {
         setMensagem('❌ A senha deve ter pelo menos 6 caracteres.');
       } else if (error.code === 'auth/invalid-email') {
@@ -143,9 +147,9 @@ export default function Cadastro() {
             value={form.role}
             onChange={handleChange}
           >
-            <option value="Admin">Administrador</option>
-            <option value="Users">Usuário</option>
-            <option value="Leitor">Leitor</option>
+            <option value="admin">Administrador</option>
+            <option value="usuario">Usuário</option>
+            <option value="leitor">Leitor</option>
           </select>
 
           <button className={styles.btnCad} type="submit">

@@ -14,35 +14,35 @@ export default function LoginPrin() {
   const navigate = useNavigate();
   const { setUserRole } = useAuth();
 
-  // 🔹 Atualiza os campos do formulário
+  // ?? Atualiza os campos do formulário
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // 🔹 Valida formato de e-mail e senha
+  // ?? Valida formato de e-mail e senha
   const validarEmail = (email) => /\S+@\S+\.\S+/.test(email);
   const validarSenha = (senha) =>
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/.test(senha);
 
-  // 🔹 Envio do formulário
+  // ?? Envio do formulário
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMensagem('');
 
     // Validação dos campos
     if (!form.email.trim() || !form.password.trim()) {
-      setMensagem('❌ Preencha todos os campos antes de continuar.');
+      setMensagem('? Preencha todos os campos antes de continuar.');
       return;
     }
 
     if (!validarEmail(form.email)) {
-      setMensagem('❌ O email informado não é válido.');
+      setMensagem('? O email informado não é válido.');
       return;
     }
 
     if (!validarSenha(form.password)) {
       setMensagem(
-        '❌ A senha está incorreta.'
+        '? A senha está incorreta.'
       );
       return;
     }
@@ -50,11 +50,11 @@ export default function LoginPrin() {
     try {
       setLoading(true);
 
-      // 🔹 Faz login no Firebase
+      // ?? Faz login no Firebase
       const userCredential = await signInWithEmailAndPassword(auth, form.email, form.password);
       const user = userCredential.user;
 
-      // 🔹 Busca role no Firestore
+      // ?? Busca role no Firestore
       const docRef = doc(db, 'users', user.uid);
       const docSnap = await getDoc(docRef);
 
@@ -62,10 +62,10 @@ export default function LoginPrin() {
         const role = docSnap.data().role || 'user';
         setUserRole(role);
 
-        // 🔹 Exibe mensagem de sucesso
-        setMensagem('✅ Login realizado com sucesso! Redirecionando...');
+        // ?? Exibe mensagem de sucesso
+        setMensagem('? Login realizado com sucesso! Redirecionando...');
 
-        // 🔹 Redireciona conforme o tipo de usuário
+        // ?? Redireciona conforme o tipo de usuário
         setTimeout(() => {
           if (role.toLowerCase() === 'admin') {
             navigate('/telaADMinicial');
@@ -74,21 +74,21 @@ export default function LoginPrin() {
           }
         }, 1000);
       } else {
-        setMensagem('❌ Usuário não encontrado no banco de dados.');
+        setMensagem('? Usuário não encontrado no banco de dados.');
       }
     } catch (error) {
       console.error('Erro ao fazer login:', error);
 
-      // 🔹 Tratamento de erros comuns do Firebase
-      let mensagemErro = '❌ Erro ao fazer login. Tente novamente.';
+      // ?? Tratamento de erros comuns do Firebase
+      let mensagemErro = '? Erro ao fazer login. Tente novamente.';
       if (error.code === 'auth/invalid-email') {
-        mensagemErro = '❌ O formato do email é inválido.';
+        mensagemErro = '? O formato do email é inválido.';
       } else if (error.code === 'auth/user-not-found') {
-        mensagemErro = '❌ Usuário não encontrado.';
+        mensagemErro = '? Usuário não encontrado.';
       } else if (error.code === 'auth/wrong-password') {
-        mensagemErro = '❌ Senha incorreta. Verifique e tente novamente.';
+        mensagemErro = '? Senha incorreta. Verifique e tente novamente.';
       } else if (error.code === 'auth/too-many-requests') {
-        mensagemErro = '❌ Muitas tentativas falhas. Tente novamente mais tarde.';
+        mensagemErro = '? Muitas tentativas falhas. Tente novamente mais tarde.';
       }
 
       setMensagem(mensagemErro);
@@ -144,7 +144,7 @@ export default function LoginPrin() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
-              className={mensagem.startsWith('✅') ? styles.msgSucesso : styles.msgErro}
+              className={mensagem.startsWith('?') ? styles.msgSucesso : styles.msgErro}
             >
               {mensagem}
             </motion.p>

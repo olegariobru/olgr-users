@@ -6,7 +6,7 @@ export default function Header() {
   const location = useLocation();
 
   // rotas onde só o logo aparece
-  const rotasSomenteLogo = ["/login", "/cadastro", "/forgotPass"];
+  const rotasSomenteLogo = ["/login", "/cadastro", "/forgotPass", "/telaInicial"];
   const somenteLogo = rotasSomenteLogo.includes(location.pathname);
   
 
