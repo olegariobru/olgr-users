@@ -9,89 +9,87 @@ import { useAuth } from '../../Context/AuthContext';
 
 export default function LoginPrin() {
   const [form, setForm] = useState({ email: '', password: '' });
-  const [mensagem, setMensagem] = useState('');
+  const [erro, setErro] = useState('');
+  const [sucesso, setSucesso] = useState('');
   const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
   const { setUserRole } = useAuth();
 
-  // ?? Atualiza os campos do formulário
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // ?? Valida formato de e-mail e senha
   const validarEmail = (email) => /\S+@\S+\.\S+/.test(email);
-  const validarSenha = (senha) =>
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/.test(senha);
 
-  // ?? Envio do formulário
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMensagem('');
+    setErro('');
+    setSucesso('');
 
-    // Validação dos campos
-    if (!form.email.trim() || !form.password.trim()) {
-      setMensagem('? Preencha todos os campos antes de continuar.');
+    const emailNormalizado = form.email.trim().toLowerCase();
+
+    if (!emailNormalizado || !form.password.trim()) {
+      setErro('Preencha todos os campos.');
       return;
     }
 
-    if (!validarEmail(form.email)) {
-      setMensagem('? O email informado não é válido.');
-      return;
-    }
-
-    if (!validarSenha(form.password)) {
-      setMensagem(
-        '? A senha está incorreta.'
-      );
+    if (!validarEmail(emailNormalizado)) {
+      setErro('O e-mail informado não é válido.');
       return;
     }
 
     try {
       setLoading(true);
 
-      // ?? Faz login no Firebase
-      const userCredential = await signInWithEmailAndPassword(auth, form.email, form.password);
+      // 🔐 Login via Firebase Auth
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        emailNormalizado,
+        form.password
+      );
+
       const user = userCredential.user;
 
-      // ?? Busca role no Firestore
+      // 📄 Busca dados no Firestore
       const docRef = doc(db, 'users', user.uid);
       const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        const role = docSnap.data().role || 'user';
-        setUserRole(role);
+      const role = docSnap.exists()
+        ? docSnap.data().role || 'user'
+        : 'user';
 
-        // ?? Exibe mensagem de sucesso
-        setMensagem('? Login realizado com sucesso! Redirecionando...');
+      setUserRole(role);
 
-        // ?? Redireciona conforme o tipo de usuário
-        setTimeout(() => {
-          if (role.toLowerCase() === 'admin') {
-            navigate('/telaADMinicial');
-          } else {
-            navigate('/telaInicial');
-          }
-        }, 1000);
-      } else {
-        setMensagem('? Usuário não encontrado no banco de dados.');
-      }
+      setSucesso('Login realizado com sucesso! Redirecionando...');
+
+      setTimeout(() => {
+        if (role.toLowerCase() === 'admin') {
+          navigate('/telaADMinicial');
+        } else {
+          navigate('/telaInicial');
+        }
+      }, 1000);
+
     } catch (error) {
-      console.error('Erro ao fazer login:', error);
+      console.error(error);
 
-      // ?? Tratamento de erros comuns do Firebase
-      let mensagemErro = '? Erro ao fazer login. Tente novamente.';
-      if (error.code === 'auth/invalid-email') {
-        mensagemErro = '? O formato do email é inválido.';
-      } else if (error.code === 'auth/user-not-found') {
-        mensagemErro = '? Usuário não encontrado.';
-      } else if (error.code === 'auth/wrong-password') {
-        mensagemErro = '? Senha incorreta. Verifique e tente novamente.';
-      } else if (error.code === 'auth/too-many-requests') {
-        mensagemErro = '? Muitas tentativas falhas. Tente novamente mais tarde.';
+      switch (error.code) {
+        case 'auth/user-not-found':
+          setErro('Usuário não encontrado.');
+          break;
+        case 'auth/wrong-password':
+          setErro('Senha incorreta.');
+          break;
+        case 'auth/invalid-email':
+          setErro('E-mail inválido.');
+          break;
+        case 'auth/too-many-requests':
+          setErro('Muitas tentativas. Tente mais tarde.');
+          break;
+        default:
+          setErro('Erro ao fazer login.');
       }
-
-      setMensagem(mensagemErro);
     } finally {
       setLoading(false);
     }
@@ -101,66 +99,39 @@ export default function LoginPrin() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5 }}
     >
       <div className={styles.lgBody}>
         <form className={styles.lgForm} onSubmit={handleSubmit}>
-          <div className={styles.lgFormDiv}>
-            <p className={styles.lgFormPtitle}>Bem-vindo de volta! :)</p>
-            <p className={styles.lgFormPsubtitle}>
-              Insira suas credenciais para acessar sua conta.
-            </p>
-          </div>
+          <p className={styles.lgFormPtitle}>Bem-vindo de volta!</p>
 
-          <label className={styles.lgLabel} htmlFor="email">Email</label>
+          <label>Email</label>
           <input
-            className={styles.lgInput}
-            type="email"
-            id="email"
             name="email"
+            type="email"
             value={form.email}
             onChange={handleChange}
-            placeholder="seuemail@exemplo.com"
+            className={styles.lgInput}
           />
 
-          <label className={styles.lgLabel} htmlFor="password">Senha</label>
+          <label>Senha</label>
           <input
-            className={styles.lgInput}
-            type="password"
-            id="password"
             name="password"
+            type="password"
             value={form.password}
             onChange={handleChange}
-            placeholder="********"
+            className={styles.lgInput}
           />
 
-          <button className={styles.lgButton} type="submit" disabled={loading}>
+          <button disabled={loading} className={styles.lgButton}>
             {loading ? 'Entrando...' : 'Entrar'}
           </button>
 
-          {mensagem && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className={mensagem.startsWith('?') ? styles.msgSucesso : styles.msgErro}
-            >
-              {mensagem}
-            </motion.p>
-          )}
+          {erro && <p className={styles.msgErro}>{erro}</p>}
+          {sucesso && <p className={styles.msgSucesso}>{sucesso}</p>}
 
           <p className={styles.lgFormP}>
-            Esqueceu sua senha?{' '}
-            <Link to="/forgotPass" className={styles.lgLink}>
-              Clique aqui.
-            </Link>
-          </p>
-          <p className={styles.lgFormP}>
-            Não tem conta?{' '}
-            <Link to="/cadastro" className={styles.lgLink}>
-              Cadastre-se.
-            </Link>
+            Esqueceu a senha? <Link to="/forgotPass">Clique aqui</Link>
           </p>
         </form>
       </div>
