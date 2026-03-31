@@ -109,7 +109,7 @@ export default function LoginPrin() {
           <input
             name="email"
             type="email"
-            value={form.email}
+            value={form.email} 
             onChange={handleChange}
             className={styles.lgInput}
           />
