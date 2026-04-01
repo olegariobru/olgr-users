@@ -1,12 +1,19 @@
 .container {
-  width: 240px;
-  min-width: 200px;
+  width: 220px;
   height: 100vh;
-  background: var(--cor-preta);
-  color: var(--cor-branca);
+  background: #0f172a;
+  color: #fff;
   padding: 20px;
   display: flex;
   flex-direction: column;
+  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* animação estilo iOS */
+.iosExit {
+  transform: scale(0.96);
+  opacity: 0.6;
+  filter: blur(6px);
 }
 
 .title {
@@ -15,41 +22,76 @@
   margin-bottom: 30px;
 }
 
+/* itens */
 .item {
   padding: 12px 14px;
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
 .item:hover {
-  background: #1e293b;
-  transform: translateX(4px);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .active {
-  background: #1e293b;
-  position: relative;
+  background: #2563eb;
 }
 
-.active::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 10%;
-  width: 4px;
-  height: 80%;
-  background: #2563eb;
-  border-radius: 4px;
+/* botão sair separado (melhor UX) */
+.logout {
+  margin-top: 290px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  background: rgba(255, 0, 0, 0.15);
   transition: all 0.2s ease;
 }
 
-.item:active {
-  transform: scale(0.97);
-  opacity: 0.8;
+.logout:hover {
+  background: rgba(255, 0, 0, 0.3);
+}
+
+/* overlay estilo iOS */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.3);
+  backdrop-filter: blur(10px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  animation: fadeIn 0.3s ease;
+  z-index: 9999;
+}
+
+/* spinner estilo iOS */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top: 3px solid #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* animações */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
