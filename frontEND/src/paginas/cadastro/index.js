@@ -23,7 +23,7 @@ export default function Cadastro() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const validarEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validarEmail = (email) => /^[^\s@]+@[^\s@]+.[^\s@]+$/.test(email);
   const validarSenha = (senha) =>
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/.test(senha);
 
@@ -56,12 +56,18 @@ export default function Cadastro() {
       // 1️⃣ Cria o usuário no Firebase Authentication
       const cred = await createUserWithEmailAndPassword(auth, form.email, form.senha);
 
+      // Normaliza o role antes de salvar no Firestore
+      let roleToSave = form.role.toLowerCase();
+      if (roleToSave === 'usuario' || roleToSave === 'leitor') {
+        roleToSave = 'user';
+      }
+
       // 2️⃣ Cria o documento no Firestore com o grupo selecionado
       await setDoc(doc(db, 'users', cred.user.uid), {
         nome: form.nome,
         email: form.email,
         telefone: form.telefone,
-        role: form.role, // 🔹 Armazena o grupo escolhido
+        role: roleToSave, // 🔹 Armazena o grupo normalizado
         criadoEm: serverTimestamp(),
       });
 

@@ -1,63 +1,43 @@
 import { Routes, Route } from "react-router-dom";
+
 import PrivateRoute from "./privatesRoute";
-import PublicRoute from "./publicRotes";
-import Forgot from "../paginas/forgotPass"
+
+import Forgot from "../paginas/forgotPass";
 import LoginP from "../paginas/login";
 import TelaDeEntrada from "../paginas/telaEntrada";
 import Cadastro from "../paginas/cadastro";
+
 import TelaADMinicial from "../paginas/telaADMinicial";
+import TelaInicial from "../paginas/telaInicial";
 
 export default function AppRoutes() {
   return (
     <Routes>
 
-      {/* tela inicial */}
+      {/* públicas */}
+      <Route path="/" element={<TelaDeEntrada />} />
+
+      <Route path="/login" element={<LoginP />} />
+
+      <Route path="/forgotpass" element={<Forgot />} />
+
+      <Route path="/cadastro" element={<Cadastro />} />
+
+      {/* usuário */}
       <Route
-        path="/"
+        path="/user"
         element={
-          <PublicRoute>
-            <TelaDeEntrada />
-          </PublicRoute>
+          <PrivateRoute allowedRoles={["user"]}>
+            <TelaInicial />
+          </PrivateRoute>
         }
       />
 
-      {/* login */}
-      <Route
-        path="/login"
-        element={
-          <PublicRoute>
-            <LoginP />
-          </PublicRoute>
-        }
-      />
-
-
-      {/* forgot password */} 
-        <Route
-          path="/forgotpass"
-          element={
-            <PublicRoute>
-              <Forgot />
-            </PublicRoute>
-          }
-        />
-
-
-      {/* cadastro */}
-      <Route
-        path="/cadastro"
-        element={
-          <PublicRoute>
-            <Cadastro />
-          </PublicRoute>
-        }
-      />
-
-      {/* área protegida */}
+      {/* admin */}
       <Route
         path="/admin"
         element={
-          <PrivateRoute>
+          <PrivateRoute allowedRoles={["admin"]}>
             <TelaADMinicial />
           </PrivateRoute>
         }
@@ -66,11 +46,7 @@ export default function AppRoutes() {
       {/* fallback */}
       <Route
         path="*"
-        element={
-          <PrivateRoute>
-            <TelaADMinicial />
-          </PrivateRoute>
-        }
+        element={<h1>Página não encontrada</h1>}
       />
 
     </Routes>

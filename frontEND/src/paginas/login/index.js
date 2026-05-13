@@ -55,21 +55,34 @@ export default function LoginPrin() {
       const docRef = doc(db, 'users', user.uid);
       const docSnap = await getDoc(docRef);
 
-      const role = docSnap.exists()
-        ? docSnap.data().role || 'user'
-        : 'user';
+      let role = 'user'; // Valor padrão seguro
+      if (docSnap.exists() && docSnap.data().role) {
+        const fetchedRole = String(docSnap.data().role).toLowerCase();
+        // Garante que o role seja 'admin' ou 'user', caso contrário, assume 'user'
+        if (fetchedRole === 'admin' || fetchedRole === 'user') {
+          role = fetchedRole;
+        } else {
+          console.warn('Role inesperado encontrado para o usuário:', user.uid, fetchedRole);
+        }
+      }
 
       setUserRole(role);
 
       setSucesso('Login realizado com sucesso! Redirecionando...');
 
-      setTimeout(() => {
-        if (role.toLowerCase() === 'admin') {
-          navigate('/telaADMinicial');
-        } else {
-          navigate('/telaInicial');
-        }
-      }, 1000);
+      // Redirecionamento imediato com base no role
+      if (role === 'admin') {
+        navigate('/admin');
+      }else {
+        setErro('Role do usuário é inválido. Contate o suporte.');
+      }
+
+      if (role === 'user') {
+        navigate('/user');
+      }else {
+        // Caso role seja algo inesperado, redireciona para uma página segura ou mostra mensagem
+        setErro('Role do usuário é inválido. Contate o suporte.');
+      }
 
     } catch (error) {
       console.error(error);
